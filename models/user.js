@@ -40,6 +40,11 @@ const userSchema = new mongoose.Schema({
         required : true
     },
 
+    whatsapp : {
+        type : String,
+        required : true
+    }
+
 });
 
 const User = mongoose.model( "Users", userSchema );

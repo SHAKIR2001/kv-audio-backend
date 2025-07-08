@@ -27,8 +27,8 @@ export function loginUser(req,res){
     const data = req.body;
 
     User.findOne({
-        email : data.email
-    }).then( (user)=>{
+        email : data.email  //email = mongoDB email
+    }).then( (user)=>{     //pass the whole data into "user" this "user" is just a variable name for the result returned by the query
         if ( user == null)
         {
             res.status(404).json({

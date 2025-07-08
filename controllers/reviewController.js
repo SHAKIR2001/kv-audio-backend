@@ -25,6 +25,23 @@ export function addReview(req,res){     //check if any user login if not then, e
             })
         })
     })
+}
 
+export function getReviews(req,res){
+    const user = req.user;
+
+    if(user == null || user.role != "admin" )
+    {
+        Review.find({isApproved : true}).then((reviews)=>{
+            res.json(reviews);
+        })
+        return;
+    }
+
+    if ( user.role == "admin"){
+        Review.find().then( (reviews)=>{
+            res.json(reviews);
+        })
+    }
 
 }

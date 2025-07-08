@@ -2,9 +2,11 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";   
 import userRouter from "./routes/userRouter.js";
-import productRouter from "./routes/productRouter.js"
-import jwt from "jsonwebtoken"
+import productRouter from "./routes/productRouter.js";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
+dotenv.config(); //load the environmental varibale file(.env file)
 
 const app = express(); //Access express from variable app 
 
@@ -35,7 +37,7 @@ app.use((req,res,next)=>{   //middleware
 
 
 //mongoDB connection
-const mongoUrl = "mongodb+srv://admin:123@cluster0.erafh0q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const mongoUrl = process.env.MONGO_URL;
 mongoose.connect(mongoUrl);
 const connection  = mongoose.connection;
 connection.once("open", ()=>{

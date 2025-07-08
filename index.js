@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";   
 import userRouter from "./routes/userRouter.js";
 import productRouter from "./routes/productRouter.js";
+import reviewRouter from "./routes/reviewRouter.js"
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
@@ -47,6 +48,7 @@ connection.once("open", ()=>{
 
 app.use( "/api/users", userRouter);
 app.use( "/api/products", productRouter)
+app.use ( "/api/reviews", reviewRouter )
 
 
 

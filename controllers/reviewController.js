@@ -49,7 +49,18 @@ export function getReviews(req,res){
 export function deleteReview(req,res){
     const email = req.params.email;
 
-    Review.deleteOne({email:email}).then( ()=>{
+    if ( req.user == null)
+    {
+        res.status(401).json( ()=>{
+            res,json({
+                message : "please login and try again"
+            })
+        });return;
+    }
+
+     if ( req.user.role == "admin" || ( req.user.role == "customer" && email == req.user.email ) )
+    {
+        Review.deleteOne({email:email}).then( ()=>{
         res.json({
             message : "review deleted successfully"
         }).catch( ()=>{
@@ -58,5 +69,11 @@ export function deleteReview(req,res){
             })
         })
     })
+
+    }else {
+        res.json({
+            message : "you dont have the permisson to perform this acction"
+        })
+    }
 }
  

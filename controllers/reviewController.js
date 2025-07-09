@@ -89,7 +89,7 @@ export function approveReview(req,res){
         });return;
     }
 
-    if ( req.user.roll == "admin")
+    if ( req.user.role == "admin")
     {
         Review.updateOne(
         {

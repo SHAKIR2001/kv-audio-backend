@@ -76,4 +76,40 @@ export function deleteReview(req,res){
         })
     }
 }
+
+export function approveReview(req,res){
+    const email = req.params.email;
+
+     if ( req.user == null)
+    {
+        res.status(401).json( ()=>{
+            res,json({
+                message : "please login and try again"
+            })
+        });return;
+    }
+
+    if ( req.user.roll == "admin")
+    {
+        Review.updateOne(
+        {
+            email : email
+        },
+        {
+            isApproved : true
+        }).then( ()=>{
+            res.json({
+                message : "Review approved successfully"
+            })
+        }).catch( ()=>{
+            res.status(500).json({
+                error : "Review approval failed"
+            })
+        })
+    }else{
+        res.status(403).json({
+            message : "Only admins can approved the reviews"
+        })
+    }
+}
  
